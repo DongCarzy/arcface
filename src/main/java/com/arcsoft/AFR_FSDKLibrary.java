@@ -13,7 +13,7 @@ import com.sun.jna.ptr.PointerByReference;
  * @author carzy
  */
 public interface AFR_FSDKLibrary extends Library {
-    AFR_FSDKLibrary INSTANCE = LoadUtils.loadLibrary(Platform.isWindows() ? "libarcsoft_fsdk_face_recognition.dll" : "/home/ubuntu/work/lib/libarcsoft_fsdk_face_recognition.so", AFR_FSDKLibrary.class);
+    AFR_FSDKLibrary INSTANCE = LoadUtils.loadLibrary(Platform.isWindows() ? "libarcsoft_fsdk_face_recognition.dll" : "libarcsoft_fsdk_face_recognition.so", AFR_FSDKLibrary.class);
 
     /**
      * 初始化
