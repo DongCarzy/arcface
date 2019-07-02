@@ -35,7 +35,7 @@ public class ImageFeatureUtils {
         Pointer pFDWorkMem = CLibrary.INSTANCE.malloc(FD_WORKBUF_SIZE);
         Pointer pFRWorkMem = CLibrary.INSTANCE.malloc(FR_WORKBUF_SIZE);
         Pointer hFDEngine = null;
-        Pointer hFREngine= null;
+        Pointer hFREngine = null;
 
         try {
             // FD
@@ -54,14 +54,31 @@ public class ImageFeatureUtils {
                 throw new RuntimeException("文件不存在");
             }
         } finally {
-            if (hFDEngine != null){
-                AFD_FSDKLibrary.INSTANCE.AFD_FSDK_UninitialFaceEngine(hFDEngine);
+            if (hFDEngine != null) {
+                try {
+                    AFD_FSDKLibrary.INSTANCE.AFD_FSDK_UninitialFaceEngine(hFDEngine);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            if (hFREngine != null){
-                AFR_FSDKLibrary.INSTANCE.AFR_FSDK_UninitialEngine(hFREngine);
+            if (hFREngine != null) {
+                try {
+                    AFR_FSDKLibrary.INSTANCE.AFR_FSDK_UninitialEngine(hFREngine);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            CLibrary.INSTANCE.free(pFDWorkMem);
-            CLibrary.INSTANCE.free(pFRWorkMem);
+
+            try {
+                CLibrary.INSTANCE.free(pFDWorkMem);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                CLibrary.INSTANCE.free(pFRWorkMem);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -69,8 +86,8 @@ public class ImageFeatureUtils {
         try {
             ASVLOFFSCREEN img = loadImage(file.getPath());
             FaceInfo[] faceInfos = doFaceDetection(hFDEngine, img);
-            if (faceInfos.length < 1) {
-                throw new RuntimeException("no face in Image");
+            if (faceInfos.length != 1) {
+                throw new RuntimeException("allowed one face in Image");
             }
             AFR_FSDK_FACEMODEL faceFeature = extractFRFeature(hFREngine, img, faceInfos[0]);
             if (faceFeature != null) {

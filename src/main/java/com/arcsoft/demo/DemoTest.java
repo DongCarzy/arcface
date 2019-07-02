@@ -15,7 +15,7 @@ public class DemoTest {
         String APPID = "e2CaBGmvWgLupK7FMGJL1GP7WdXL5C9KCgaT3pz2s2o";
         String FD_SDKKEY = "9PP4oEazo6FcJwkhhJbfAbGWCyWx3RPyio29vcPXfF25";
         String FR_SDKKEY = "9PP4oEazo6FcJwkhhJbfAbGzraZeXqwjEz7JmGxDQRLp";
-        String path = "/home/ubuntu/work/1.jpg";
+        String path = "1.jpg";
 
         ImageFeatureUtils imageFeatureUtils = new ImageFeatureUtils(APPID, FD_SDKKEY, FR_SDKKEY);
         byte[] bytes = imageFeatureUtils.getFeature(path);
